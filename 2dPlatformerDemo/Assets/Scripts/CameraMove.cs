@@ -2,17 +2,18 @@
 using System.Collections;
 
 public class CameraMove : MonoBehaviour {
-
-	private Vector2 viewPos;
-	private PlayerBehavior player;
 	
-	// Use this for initialization
+	private PlayerBehavior player;
+	private Vector3 viewPos;
+	
+
 	public void Start () {
 		player = FindObjectOfType<PlayerBehavior> ();
 	}
 
-	void Update () {
-		viewPos = new Vector2 (player.transform.position.x, 0);
-		Camera.main.transform.position = viewPos;
+
+	public void Update () {
+		viewPos = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+		transform.position = viewPos;
 	}
 }
