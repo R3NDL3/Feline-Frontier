@@ -18,7 +18,6 @@ public class PlayerBehavior : MonoBehaviour {
 	public void Start () {
 		numJumps = 0;
 		animate = GetComponent<Animator> ();
-
 	}
 
 	// Update is called once per frame
@@ -87,7 +86,7 @@ public class PlayerBehavior : MonoBehaviour {
 		return numJumps < maxJumps;
 	}
 	private float absoluteVelocityX(){
-		float absolute = GetComponent<Rigidbody2D> ().velocity.x;
+		float absolute = Mathf.Abs (GetComponent<Rigidbody2D> ().velocity.x);
 		if (absolute < 0)
 			absolute = -absolute;
 		return absolute;
