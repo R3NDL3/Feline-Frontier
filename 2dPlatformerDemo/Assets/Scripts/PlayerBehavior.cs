@@ -12,10 +12,13 @@ public class PlayerBehavior : MonoBehaviour {
 	public LayerMask groundLayer;
 	
 	private int numJumps;
+	private Animator animate;
 
 	// Use this for initialization
 	public void Start () {
 		numJumps = 0;
+		animate = GetComponent<Animator> ();
+
 	}
 
 	// Update is called once per frame
@@ -59,10 +62,13 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate()
+	public void LateUpdate()
 	{
-		//A delayed update
-
+		float absolute = GetComponent<Rigidbody2D> ().velocity.x;
+		if (absolute < 0)
+			absolute = -absolute;
+		animate.SetFloat ("Speed", absoluteVelocityX ());
+		animate.SetBool ("Grounded", grounded ());
 	}
 
 	public void OnCollisionEnter2D (Collision2D coll){
@@ -79,6 +85,12 @@ public class PlayerBehavior : MonoBehaviour {
 	private bool canJump()
 	{
 		return numJumps < maxJumps;
+	}
+	private float absoluteVelocityX(){
+		float absolute = GetComponent<Rigidbody2D> ().velocity.x;
+		if (absolute < 0)
+			absolute = -absolute;
+		return absolute;
 	}
 }
 
